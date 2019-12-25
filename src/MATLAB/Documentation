@@ -1,0 +1,293 @@
+John Curran
+
+This is a basic simulation of the MATLAB software. With this program, the user can create matrix, vector, and scalar
+variables in order to use in calculations. Any invalid commands will be met with an error, but errors do not stop
+the program from running, it only cancels the command. Explained below are the different commands used in this program
+
+Important: commands in this simulation are not free form. You must have at least one space between each part of the command
+           or the command will not be understood. You may have as many spaces as you'd like, but there must be at least one
+           
+Warning: by the nature of float values in Java, there is imprecision associated with many of these calculations. Therefore, the 
+         PreciseMath class was used. As a result of this, decimals are only estimated to the 4th decimal place, and thus there 
+         may be small inaccuracies. In addition to this, exceedingly large numbers cannot be used due to the nature of
+         PreciseMath implementation
+
+
+
+DECLARING VARIABLES
+Variables can only be created using immediate values or scalars. You cannot declare a vector or matrix variable to equal
+another (this is done a different way). Variables can be named almost everything (except for valid commands or words that
+are exclusively numbers), but they cannot share named variables of different types (ex: there cannot be a matrix and scalar
+of the same name). Declaring a variable with a name that already exists will simply override the existing variable
+
+1. Declaring a matrix
+
+>> Matrix variableName = # # # ; # # # ; # # #
+This will create a matrix using the numbers that are put in. Scalar variables can be used.
+Each set of numbers preceding ";" is a row. Unequal dimensions will result in an error
+
+Ex: Matrix m = 1 2 3 4 ; 1 2 3 4
+This will create a 2x4 matrix, with "1 2 3 4" as each row
+
+2. Declaring a vector
+
+>> Vector variableName = # # # #
+This will create a vector using the numbers put in. Scalar variables can be used
+
+Ex: >> Vector v = 1 2 3 4 5
+This will create a vector with 5 values, starting with 1 at the top and ending with 5 at the bottom
+
+3. Declaring a scalar
+
+>> Scalar variableName = #
+This will create a scalar of the given value. Integers and decimals may be used (this program uses float precision).
+A scalar variable cannot be set to another existing scalar variable this way, it must be done using an immediate
+value
+
+Ex: >> Scalar s = 3.1415
+This will create a scalar variable of value 3.1415
+
+
+
+COPYING VARIABLES
+Using the equals sign can only set variables using immediate values and scalar variables (for matrices and vectors). 
+However, variables can be copied into other variables using ">"
+
+Ex: >> Vector v = 1 2 3 4
+    >> v > x
+This will create a vector variable "x" and set it to the same values as v. These variables are independent, thus
+altering v will not alter x.
+Copying a non-existent variable will result in an error. Copying into a non-existent variable will create that variable,
+and copying into an existing variable will override that variable's current values
+
+The copy command can be used with every command that results in a value of some kind. Simply include ">" and a variable
+name after each command (ex: size m > msize)
+
+It is valid (and often quite useful) to copy a value into itself, because, with the exception of the "set" command, no 
+commands actually alter the variable itself
+
+
+
+TERMINATING THE PROGRAM
+The command "exit" will terminate the program
+
+
+
+PRINTING A VARIABLE
+Writing out a variable name and nothing else will print the variable out. Trying to print a non-existent variable will result
+in an error
+
+
+
+VECTOR COMMANDS
+These are commands that can be used to derive information about vector variables
+
+1. Vector length
+
+>> length variableName
+This will print the length of the vector. Using ">" will copy that value into a scalar variable
+
+Ex: >> Vector v1 = 1 2 3 4
+    >> length v1
+    4
+    >> length v1 > sLength
+    sLength = 4    
+
+2. Dot Product
+
+>> dot vectorName vectorName
+This will compute and print the dot product (inner product) of the two variables. As per every other calculation, using
+the copy command ">" on the same line will copy this value into another variable
+
+Ex: >> Vector v1 = 1 2 3 4
+    >> Vector v2 = 2 3 4 5
+    >> dot v1 v2 > s1
+    s1 = 40
+    
+3. Vector values
+
+>> vectorName : #
+This will print (return) the value in the position of the vector marked by the number. Position 1 is the top.
+An error will occur if there is no such position given
+
+Ex: >> Vector v1 = 1.5 5 6.7 11
+    >> v1 : 3
+    6.7
+    >> v1 : 2 > s
+    s = 5
+    
+    
+    
+MATRIX COMMANDS
+These are commands that can be used to derive information about matrix variables
+
+1. Matrix rows, columns, and size
+
+>> rows matrixName
+This will print the number of rows in the matrix
+
+>> columns matrixName
+This will print the number of rows in the matrix
+
+>> size matrixName
+This will print the size of the matrix (total number of variables)
+
+Ex: >> Matrix m = 1 1 1 ; 2 2 2 ; 3 3 3 ; 4 4 4 ; 5 5 5
+    >> rows m
+    5
+    >> columns m
+    3
+    >> size m > s
+    s = 15
+    
+2. Transpose of a matrix
+
+>> transpose matrixName
+Computes and prints the transpose of the given matrix. Per usual, the ">" command will copy
+the transpose matrix into another matrix variable
+
+3. Row reduced echelon form
+
+>> rref matrixName
+Computes and prints the row reduced echelon form of the matrix
+
+4. The inverse matrix
+
+>> inverse matrixName
+Computes and prints the inverse of the matrix. An error will occur if the matrix is not invertible
+
+5. Matrix determinants
+
+>> det matrixName
+Computes and prints the determinant of the matrix
+
+6. Matrix columns and values
+
+>> matrixName : #
+Returns the column in the given index in vector form. This column can be copied into a vector variable
+using ">"
+
+>> matrixName :: # #
+Returns the value of the given row and column, with the first number designating the row and the second number
+designating the column. As with all other commands using scalars, immediate values or scalar variables can be used
+
+Ex: >> Matrix m = 5 6 1 ; 0.5 3 3
+    >> m :: 1 2 > s
+    s = 6
+
+
+
+SETTING VECTOR AND MATRIX VALUES
+Unlike other commands, these commands cannot be followed by the copy command
+
+1. Setting vector values
+
+>> set vectorName : # #
+Sets the value in the given index of the vector to the given value, with the first number representing
+the value index (starting at one) and the second number representing the new value
+
+2. Setting matrix columns and values
+
+>> set matrixName : # vectorName
+Sets the matrix column in the given index to the give vector variable
+
+>> set matrixName :: # # #
+Sets the value of the given row index (first number) and column index (second number) to the given
+value (third number)
+
+
+
+MATRIX ARITHMETIC
+All of these commands can copy the results into new variables using ">" after the arithmetic expression.
+Any invalid calculations will result in an error
+
+1. Adding and subtracting matrices
+
+>> matrixName + matrixName
+Adds the two matrices and prints the result
+
+>> matrixName - matrixName
+Subtracts the two matrices and prints the result
+
+2. Multiplying matrices
+
+>> matrixName * matrixName
+Multiplies the two matrices and prints the result
+
+>> matrixName * vectorName
+Multiplies the matrix and vector and prints the result
+
+>> matrixName * #
+Scales the matrix by the given value and prints the result
+
+3. Matrix exponents
+
+>> matrixName ^ #
+Calculates the matrix to the given power, using an immediate value or a scalar variable
+
+
+
+VECTOR ARITHMETIC
+All of these commands can copy the results into new variables using ">" after the arithmetic expression.
+Any invalid calculations will result in an error
+
+1. Adding and subtracting vectors
+
+>> vectorName + vectorName
+Adds the two vectors and prints the result
+
+>> vectorName - vectorName
+Subtracts the two vectors and prints the result
+
+2. Scaling a vector
+
+>> vectorName * #
+Scales the vector by the given value and prints the result
+
+
+
+SCALAR ARITHMETIC
+All of these commands can copy the results into new variables using ">" after the arithmetic expression.
+Any invalid calculations will result in an error. The first value must be a scalar variable, but the
+second part of the expression can be either a variable or an immediate value
+
+1. Adding and subtracting scalars
+
+>> scalarName + #
+Adds the scalar variable and the scalar and prints the result
+
+>> scalar - #
+Subtracts the scalar variable and the scalar and prints the result
+
+2. Multiplying and dividing scalars
+
+>> scalarName * #
+Multiplies the scalar variable and the scalar and prints the result
+
+>> scalarName / #
+Divides the scalar variable and the scalar and prints the result
+
+3. Scalar exponents
+
+>> scalarName ^ #
+Calculates and prints the scalar brought to the given power
+
+4. Remainders
+
+>> scalarName % #
+Calculates and prints the remainder after dividing the scalar variable by the scalar
+
+5. Factorials
+
+>> scalarName !
+Calculates the factorial of the scalar variable. An error will occur if the variable is not an integer
+
+
+
+
+
+This program is a work in progress, and more will be added to this documentation as more features are added to the program. This
+project is mine alone. The concept and implementation were all created by me, and all code was written by me. None of this
+work is associated with the University of Maryland or any other institutions.
+
+Of course, credit is given to MATLAB, as most of these commands are inspired by the software, even if they aren't the same
